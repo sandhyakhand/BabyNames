@@ -1,0 +1,31 @@
+1. select name from babynames where num_babies = (select MAX(num_babies) from babynames where us_state='MD' and date_year=1991 and gender='M') and us_state='MD' and date_year=1991 and gender='M';
+
+Result: Michael
+
+2. select date_year from babynames where num_babies = (select MAX(num_babies) from babynames where name='Christopher' and gender='M') and name='Christopher' and gender='M';
+
+Result: 1985
+
+3. select date_year from babynames where num_babies = (select MAX(num_babies) from babynames where name='Rosemary' and gender='F') and name='Rosemary' and gender='F';
+
+Result: 1947
+
+4.  select name from babynames where date_year=2000 and us_state='MD' and num_babies > 500;
+
+Result: Michael, Joshua, Jacob, Matthew, Ryan
+
+5. select us_state from babynames where num_babies = (select MIN(num_babies) from babynames where gender='M' and name='Xavier' and date_year=2014) and gender='M' and name = 'Xavier' and date_year = 2014;
+
+Result: ND
+
+6. select us_state from babynames where num_babies = (select MAX(num_babies) from babynames where gender='F' and name='Hannah' and date_year=1997) and gender='F' and name = 'Hannah' and date_year = 1997;
+
+Result: CA
+
+7. insert into babynames values (10000000, 'Joseph', 2016, 'M', 'PA', 476);
+
+8. delete from babynames where id = 10000000;
+
+9. select name from babynames where gender='M' and date_year=1991 group by name having SUM(num_babies) = (select MAX(x.y) from (select SUM(num_babies) as y from babynames where gender='M' and date_year=1991 group by name)x);
+
+Result: Michael
